@@ -61,27 +61,35 @@ namespace InvertoryManagementProject
 
             DataGridViewTextBoxColumn col4 = new DataGridViewTextBoxColumn();
 
-            col4.Name = "companyCargoType";
-            col4.HeaderText = "Kargo Şekli";
-            col4.DataPropertyName = "companyCargoType";
-            col4.Width = 90;
+            col4.Name = "companyDistrict";
+            col4.HeaderText = "İlçe";
+            col4.DataPropertyName = "companyDistrict";
+            col4.Width = 70;
             dgvCompanies.Columns.Add(col4);
 
             DataGridViewTextBoxColumn col5 = new DataGridViewTextBoxColumn();
 
-            col5.Name = "companyPaymentType";
-            col5.HeaderText = "Ödeme Şekli";
-            col5.DataPropertyName = "Flotte";
-            col5.Width = 100;
+            col5.Name = "companyCargoType";
+            col5.HeaderText = "Kargo Şekli";
+            col5.DataPropertyName = "companyCargoType";
+            col5.Width = 90;
             dgvCompanies.Columns.Add(col5);
 
             DataGridViewTextBoxColumn col6 = new DataGridViewTextBoxColumn();
 
-            col6.Name = "companyAddress";
-            col6.HeaderText = "Adres";
-            col6.DataPropertyName = "companyAddress";
-            col6.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            col6.Name = "companyPaymentType";
+            col6.HeaderText = "Ödeme Şekli";
+            col6.DataPropertyName = "Flotte";
+            col6.Width = 100;
             dgvCompanies.Columns.Add(col6);
+
+            DataGridViewTextBoxColumn col7 = new DataGridViewTextBoxColumn();
+
+            col7.Name = "companyAddress";
+            col7.HeaderText = "Adres";
+            col7.DataPropertyName = "companyAddress";
+            col7.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvCompanies.Columns.Add(col7);
 
             dgvCompanies.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
@@ -89,28 +97,56 @@ namespace InvertoryManagementProject
         void fillCustomersDGV()
         {
             dgvCompanies.Rows.Clear();
-            int rowIndex = 1;
-            string sqlQuery = SQL.SelectAllQueryGenerator("company"); 
-            using (SqlConnection sqlCon = new SqlConnection(GlobalVariables.SQLPath))
+            string query = SQL.SelectAllQueryGenerator("company");
+            using (SqlConnection con = new SqlConnection(GlobalVariables.SQLPath))
             {
-                sqlCon.Open();
-                using (SqlCommand sqlCmd = new SqlCommand(sqlQuery, sqlCon))
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(query, con))
                 {
-                    SqlDataReader sqlReader = sqlCmd.ExecuteReader();
-                    while (sqlReader.Read())
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
                     {
-                        object[] companyData = new object[6];
-                        companyData[0] = sqlReader["ID"];
-                        companyData[1] = sqlReader["name"];
-                        companyData[2] = sqlReader["city"];
-                        companyData[3] = sqlReader["cargotype"];
-                        companyData[4] = sqlReader["paymenttype"];
-                        companyData[5] = sqlReader["address"];
-                        dgvCompanies.Rows.Add(rowIndex, companyData[0], companyData[1], companyData[2], companyData[3], companyData[4], companyData[5]);
-                        rowIndex++;
+                        object[] companyData = new object[7];
+                        companyData[0] = reader["ID"];
+                        companyData[1] = reader["name"];
+                        companyData[2] = reader["city"];
+                        companyData[3] = reader["district"];
+                        companyData[4] = reader["cargotype"];
+                        companyData[5] = reader["paymenttype"];
+                        companyData[6] = reader["address"];
+                        dgvCompanies.Rows.Add("", companyData[0], companyData[1], companyData[2], companyData[3], companyData[4], companyData[5], companyData[6]);
+
                     }
                 }
             }
+        }
+
+        private void dgvCompanies_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex == 0)
+            {
+                e.Value = e.RowIndex + 1;
+            }
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            DialogResult result = new scr_CompanyAddEdit().ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                
+            }
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

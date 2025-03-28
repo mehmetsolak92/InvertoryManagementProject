@@ -16,6 +16,22 @@ namespace InvertoryManagementProject
             string query = $"SELECT * FROM {tableName}";
             return query;
         }
+
+        public static int FindMaxID(string tableName)
+        {
+            string query = $"SELECT MAX(ID) FROM {tableName}";
+
+            using (SqlConnection con = new SqlConnection(GlobalVariables.SQLPath))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    var result = cmd.ExecuteScalar();
+                    int maxID = result != DBNull.Value ? Convert.ToInt32(result) : 0;
+                    return maxID;
+                }
+            }
+        }
     }
 
     public static class HelperMethods

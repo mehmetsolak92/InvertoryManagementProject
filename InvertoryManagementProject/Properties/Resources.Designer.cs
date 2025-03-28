@@ -63,6 +63,36 @@ namespace InvertoryManagementProject.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Fasticon_Database_Data_add_32 {
+            get {
+                object obj = ResourceManager.GetObject("Fasticon-Database-Data-add.32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Fasticon_Database_Data_delete_32 {
+            get {
+                object obj = ResourceManager.GetObject("Fasticon-Database-Data-delete.32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Fasticon_Database_Data_edit_32 {
+            get {
+                object obj = ResourceManager.GetObject("Fasticon-Database-Data-edit.32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Graphicloads_100_Flat_2_File_folder_32 {
             get {
                 object obj = ResourceManager.GetObject("Graphicloads-100-Flat-2-File-folder.32", resourceCulture);
@@ -106,6 +136,26 @@ namespace InvertoryManagementProject.Properties {
         internal static System.Drawing.Bitmap Graphicloads_Flat_Finance_Person_48 {
             get {
                 object obj = ResourceManager.GetObject("Graphicloads-Flat-Finance-Person.48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Oxygen_Icons_org_Oxygen_Actions_dialog_close_32 {
+            get {
+                object obj = ResourceManager.GetObject("Oxygen-Icons.org-Oxygen-Actions-dialog-close.32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Oxygen_Icons_org_Oxygen_Actions_dialog_ok_apply_32 {
+            get {
+                object obj = ResourceManager.GetObject("Oxygen-Icons.org-Oxygen-Actions-dialog-ok-apply.32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
