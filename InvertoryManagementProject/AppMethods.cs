@@ -28,7 +28,7 @@ namespace InvertoryManagementProject
                 {
                     var result = cmd.ExecuteScalar();
                     int maxID = result != DBNull.Value ? Convert.ToInt32(result) : 0;
-                    return maxID;
+                    return maxID + 1;
                 }
             }
         }
@@ -72,5 +72,64 @@ namespace InvertoryManagementProject
             }
         }
 
+        public static void WriteLog(string LogText)
+        {
+            if (!IsFileLocked(new FileInfo(GlobalVariables.LogPath)))
+            {
+                using (StreamWriter Stm_LogText = new StreamWriter(GlobalVariables.LogPath, append: true))
+                {
+                    try
+                    {
+                        Stm_LogText.WriteLine(LogText);
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                    finally
+                    {
+                        Stm_LogText.Flush();
+                        Stm_LogText.Close();
+                        Stm_LogText.Dispose();
+                    }
+                }
+            }
+        }
+
+        private static bool IsFileLocked(FileInfo file)
+        {
+            FileStream stream = null;
+
+            try
+            {
+                if (file.Exists)
+                {
+                    stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.Write);
+                }
+            }
+            catch (IOException)
+            {
+                //the file is unavailable because it is:
+                //still being written to
+                //or being processed by another thread
+                //or does not exist (has already been processed)
+                return true;
+            }
+            finally
+            {
+                if (stream != null)
+                    stream.Close();
+            }
+
+            //file is not locked
+            return false;
+        }
+
+
+
+
+
     }
+
+
 }

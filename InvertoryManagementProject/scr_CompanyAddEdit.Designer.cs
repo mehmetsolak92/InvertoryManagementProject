@@ -53,7 +53,7 @@
             // 
             lblCompanyName.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
             lblCompanyName.ForeColor = Color.White;
-            lblCompanyName.Location = new Point(23, 58);
+            lblCompanyName.Location = new Point(52, 58);
             lblCompanyName.Name = "lblCompanyName";
             lblCompanyName.Size = new Size(121, 31);
             lblCompanyName.TabIndex = 0;
@@ -64,7 +64,7 @@
             // 
             lblCargoType.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
             lblCargoType.ForeColor = Color.White;
-            lblCargoType.Location = new Point(23, 98);
+            lblCargoType.Location = new Point(52, 98);
             lblCargoType.Name = "lblCargoType";
             lblCargoType.Size = new Size(121, 31);
             lblCargoType.TabIndex = 1;
@@ -75,7 +75,7 @@
             // 
             lblCompanyID.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
             lblCompanyID.ForeColor = Color.White;
-            lblCompanyID.Location = new Point(23, 18);
+            lblCompanyID.Location = new Point(52, 18);
             lblCompanyID.Name = "lblCompanyID";
             lblCompanyID.Size = new Size(121, 31);
             lblCompanyID.TabIndex = 2;
@@ -86,7 +86,7 @@
             // 
             lblPaymentType.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
             lblPaymentType.ForeColor = Color.White;
-            lblPaymentType.Location = new Point(23, 138);
+            lblPaymentType.Location = new Point(52, 138);
             lblPaymentType.Name = "lblPaymentType";
             lblPaymentType.Size = new Size(121, 31);
             lblPaymentType.TabIndex = 3;
@@ -97,7 +97,7 @@
             // 
             lblCity.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
             lblCity.ForeColor = Color.White;
-            lblCity.Location = new Point(23, 178);
+            lblCity.Location = new Point(52, 178);
             lblCity.Name = "lblCity";
             lblCity.Size = new Size(121, 31);
             lblCity.TabIndex = 4;
@@ -108,7 +108,7 @@
             // 
             lblDistrict.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
             lblDistrict.ForeColor = Color.White;
-            lblDistrict.Location = new Point(23, 218);
+            lblDistrict.Location = new Point(52, 218);
             lblDistrict.Name = "lblDistrict";
             lblDistrict.Size = new Size(121, 31);
             lblDistrict.TabIndex = 5;
@@ -119,7 +119,7 @@
             // 
             lblAdress.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
             lblAdress.ForeColor = Color.White;
-            lblAdress.Location = new Point(23, 258);
+            lblAdress.Location = new Point(52, 258);
             lblAdress.Name = "lblAdress";
             lblAdress.Size = new Size(121, 31);
             lblAdress.TabIndex = 6;
@@ -129,7 +129,7 @@
             // txtAddress
             // 
             txtAddress.Font = new Font("Calibri", 9F, FontStyle.Regular, GraphicsUnit.Point, 162);
-            txtAddress.Location = new Point(23, 292);
+            txtAddress.Location = new Point(52, 292);
             txtAddress.Multiline = true;
             txtAddress.Name = "txtAddress";
             txtAddress.Size = new Size(275, 109);
@@ -137,52 +137,59 @@
             // 
             // txtCompanyID
             // 
-            txtCompanyID.Font = new Font("Calibri", 9F);
-            txtCompanyID.Location = new Point(150, 18);
+            txtCompanyID.Enabled = false;
+            txtCompanyID.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            txtCompanyID.Location = new Point(179, 18);
             txtCompanyID.Name = "txtCompanyID";
-            txtCompanyID.Size = new Size(148, 22);
+            txtCompanyID.Size = new Size(148, 23);
             txtCompanyID.TabIndex = 8;
+            txtCompanyID.TextAlign = HorizontalAlignment.Center;
             // 
             // txtCompanyName
             // 
             txtCompanyName.Font = new Font("Calibri", 9F);
-            txtCompanyName.Location = new Point(150, 58);
+            txtCompanyName.Location = new Point(179, 58);
             txtCompanyName.Name = "txtCompanyName";
             txtCompanyName.Size = new Size(148, 22);
             txtCompanyName.TabIndex = 9;
             // 
             // cmbCargoType
             // 
+            cmbCargoType.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCargoType.Font = new Font("Calibri", 9F);
             cmbCargoType.FormattingEnabled = true;
-            cmbCargoType.Location = new Point(150, 98);
+            cmbCargoType.Location = new Point(179, 98);
             cmbCargoType.Name = "cmbCargoType";
             cmbCargoType.Size = new Size(148, 22);
             cmbCargoType.TabIndex = 10;
             // 
             // cmbPaymentType
             // 
+            cmbPaymentType.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPaymentType.Font = new Font("Calibri", 9F);
             cmbPaymentType.FormattingEnabled = true;
-            cmbPaymentType.Location = new Point(150, 138);
+            cmbPaymentType.Location = new Point(179, 138);
             cmbPaymentType.Name = "cmbPaymentType";
             cmbPaymentType.Size = new Size(148, 22);
             cmbPaymentType.TabIndex = 11;
             // 
             // cmbCity
             // 
+            cmbCity.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCity.Font = new Font("Calibri", 9F);
             cmbCity.FormattingEnabled = true;
-            cmbCity.Location = new Point(150, 178);
+            cmbCity.Location = new Point(179, 178);
             cmbCity.Name = "cmbCity";
             cmbCity.Size = new Size(148, 22);
             cmbCity.TabIndex = 12;
+            cmbCity.SelectedIndexChanged += cmbCity_SelectedIndexChanged;
             // 
             // cmbDistrict
             // 
+            cmbDistrict.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbDistrict.Font = new Font("Calibri", 9F);
             cmbDistrict.FormattingEnabled = true;
-            cmbDistrict.Location = new Point(150, 218);
+            cmbDistrict.Location = new Point(179, 218);
             cmbDistrict.Name = "cmbDistrict";
             cmbDistrict.Size = new Size(148, 22);
             cmbDistrict.TabIndex = 13;
@@ -192,7 +199,7 @@
             btnSave.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
             btnSave.Image = Properties.Resources.Oxygen_Icons_org_Oxygen_Actions_dialog_ok_apply_32;
             btnSave.ImageAlign = ContentAlignment.MiddleLeft;
-            btnSave.Location = new Point(23, 416);
+            btnSave.Location = new Point(52, 416);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(130, 46);
             btnSave.TabIndex = 14;
@@ -205,7 +212,7 @@
             btnCancel.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 162);
             btnCancel.Image = Properties.Resources.Oxygen_Icons_org_Oxygen_Actions_dialog_close_32;
             btnCancel.ImageAlign = ContentAlignment.MiddleLeft;
-            btnCancel.Location = new Point(168, 416);
+            btnCancel.Location = new Point(197, 416);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(130, 46);
             btnCancel.TabIndex = 15;
@@ -215,6 +222,8 @@
             // 
             // errorProvider1
             // 
+            errorProvider1.BlinkRate = 0;
+            errorProvider1.BlinkStyle = ErrorBlinkStyle.NeverBlink;
             errorProvider1.ContainerControl = this;
             // 
             // scr_CompanyAddEdit
@@ -222,7 +231,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(25, 35, 45);
-            ClientSize = new Size(322, 477);
+            ClientSize = new Size(375, 477);
             Controls.Add(btnCancel);
             Controls.Add(btnSave);
             Controls.Add(cmbDistrict);

@@ -131,11 +131,11 @@ namespace InvertoryManagementProject
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            DialogResult result = new scr_CompanyAddEdit().ShowDialog();
+            DialogResult result = new scr_CompanyAddEdit(0).ShowDialog();
 
             if (result == DialogResult.OK)
             {
-                
+                fillCustomersDGV();
             }
         }
 
