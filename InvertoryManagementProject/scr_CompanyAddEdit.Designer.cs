@@ -252,6 +252,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "scr_CompanyAddEdit";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "scr_CompanyAddEdit";
             Load += scr_CompanyAddEdit_Load;
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();

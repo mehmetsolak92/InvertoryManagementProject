@@ -141,12 +141,34 @@ namespace InvertoryManagementProject
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            int _currentID = Convert.ToInt32(HelperMethods.getintvalue(dgvCompanies.CurrentRow.Cells["companyID"].Value));
+            int _oldSelectedIndex = Convert.ToInt32(HelperMethods.getintvalue(dgvCompanies.CurrentRow.Index));
+            DialogResult result = new scr_CompanyAddEdit(_currentID).ShowDialog();
 
+            if (result == DialogResult.OK)
+            {
+                fillCustomersDGV();
+                dgvCompanies.Rows[_oldSelectedIndex].Selected = true;
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            int _currentID = Convert.ToInt32(HelperMethods.getintvalue(dgvCompanies.CurrentRow.Cells["companyID"].Value));
+            SQL.DeleteFromDB("company", _currentID);
+            fillCustomersDGV();
 
+        }
+
+        private void dgvCompanies_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int _currentID = Convert.ToInt32(HelperMethods.getintvalue(dgvCompanies.CurrentRow.Cells["companyID"].Value));
+            DialogResult result = new scr_CustomerStaffs(_currentID).ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                fillCustomersDGV();
+            }
         }
     }
 }

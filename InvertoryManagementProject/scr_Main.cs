@@ -13,16 +13,19 @@ namespace InvertoryManagementProject
         private void btnHomePage_Click(object sender, EventArgs e)
         {
             moveSidePanel(btnHomePage);
+            showFormInPanel(new scr_HomePage());
         }
 
         private void btnOrders_Click(object sender, EventArgs e)
         {
             moveSidePanel(btnOrders);
+            showFormInPanel(new scr_Orders());
         }
 
         private void btnProducts_Click(object sender, EventArgs e)
         {
             moveSidePanel(btnProducts);
+            showFormInPanel(new scr_Products());
         }
 
         private void btnCustomers_Click(object sender, EventArgs e)
@@ -34,11 +37,13 @@ namespace InvertoryManagementProject
         private void btnSettings_Click(object sender, EventArgs e)
         {
             moveSidePanel(btnSettings);
+            showFormInPanel(new scr_Settings());
         }
 
         private void btnHomePage_Leave(object sender, EventArgs e)
         {
             changeColorToDefault(btnHomePage);
+
         }
 
         private void btnOrders_Leave(object sender, EventArgs e)
@@ -77,6 +82,7 @@ namespace InvertoryManagementProject
         {
             pnlNav.BringToFront();
             moveSidePanel(btnHomePage);
+            showFormInPanel(new scr_HomePage());
         }
 
         private void showFormInPanel(Form form)

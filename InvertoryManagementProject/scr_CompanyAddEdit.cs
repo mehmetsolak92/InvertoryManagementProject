@@ -25,7 +25,7 @@ namespace InvertoryManagementProject
         private void btnSave_Click(object sender, EventArgs e)
         {
             string msgStr = string.Empty;
-            if (_companyID == 0) msgStr = "Kullanıcı eklenecek. Emin misiniz?"; else msgStr = "Kullanıcı güncellenecek. Emin misiniz?";
+            if (_companyID == 0) msgStr = "Firma eklenecek. Emin misiniz?"; else msgStr = "Firma güncellenecek. Emin misiniz?";
             DialogResult dialogResult = MessageBox.Show(msgStr, "Onay", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
@@ -66,7 +66,8 @@ namespace InvertoryManagementProject
             cmbDistrict.ValueMember = "ID";
             cmbDistrict.SelectedIndex = 0;
 
-            txtCompanyID.Text = SQL.FindMaxID("company").ToString();
+            if (_companyID == 0) txtCompanyID.Text = "Yeni Kayıt"; else ReadCompanyData(_companyID);
+
         }
 
         private bool ValidateFields()
@@ -107,31 +108,96 @@ namespace InvertoryManagementProject
 
         void InsertDataToDB()
         {
-
-
-            string query = $"INSERT INTO company (name, address, city, district, cargotype, paymenttype) VALUES ('{txtCompanyName.Text}', '{txtAddress.Text}', '{cmbCity.Text}', '{cmbDistrict.Text}', '{cmbCargoType.Text}', '{cmbPaymentType.Text}')";
-
-            using (SqlConnection con = new SqlConnection(GlobalVariables.SQLPath))
+            try
             {
-                con.Open();
-                SqlCommand cmd = new SqlCommand(query, con);
-                if (cmd.ExecuteNonQuery() > 0)
+                string query = $"INSERT INTO company (name, address, city, district, cargotype, paymenttype) VALUES ('{txtCompanyName.Text}', '{txtAddress.Text}', '{cmbCity.Text}', '{cmbDistrict.Text}', '{cmbCargoType.Text}', '{cmbPaymentType.Text}')";
+
+                using (SqlConnection con = new SqlConnection(GlobalVariables.SQLPath))
                 {
-                    this.DialogResult = DialogResult.OK;
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    if (cmd.ExecuteNonQuery() > 0)
+                    {
+                        this.DialogResult = DialogResult.OK;
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
-                else
-                {
-                    return;
-                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace(ex, true);
+                HelperMethods.WriteLog(trace, ex);
             }
 
 
-            this.DialogResult = DialogResult.OK;
         }
 
         void UpdateCompanyData()
         {
+            try
+            {
+                string query = $"UPDATE company SET name = '{txtCompanyName.Text}', address = '{txtAddress.Text}', city = '{cmbCity.Text}'" +
+                $", district = '{cmbDistrict.Text}', cargotype = '{cmbCargoType.Text}', paymenttype = '{cmbPaymentType.Text}'" +
+                $"  WHERE ID = {_companyID}";
 
+                using (SqlConnection con = new SqlConnection(GlobalVariables.SQLPath))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    if (cmd.ExecuteNonQuery() > 0)
+                    {
+                        this.DialogResult = DialogResult.OK;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace(ex, true);
+                HelperMethods.WriteLog(trace, ex);
+            }
+        }
+
+        void ReadCompanyData(int ID)
+        {
+            try
+            {
+                string query = $"SELECT * FROM company WHERE ID = {ID}";
+
+                using SqlConnection con = new SqlConnection(GlobalVariables.SQLPath);
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            txtCompanyID.Text = Convert.ToString(reader["ID"]);
+                            txtCompanyName.Text = Convert.ToString(reader["name"]);
+                            txtAddress.Text = Convert.ToString(reader["address"]);
+                            cmbCity.Text = Convert.ToString(reader["city"]);
+                            cmbDistrict.Text = Convert.ToString(reader["district"]);
+                            cmbCargoType.Text = Convert.ToString(reader["cargotype"]);
+                            cmbPaymentType.Text = Convert.ToString(reader["paymenttype"]);
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace(ex, true);
+                HelperMethods.WriteLog(trace, ex);
+            }
         }
         private void cmbCity_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -142,9 +208,6 @@ namespace InvertoryManagementProject
                 var filteredDistricts = GlobalVariables.Districts
                     .Where(d => d.CityPlateNumber == selectedCity.PlateNumber)
                     .ToList();
-
-
-
                 cmbDistrict.DataSource = filteredDistricts;
                 cmbDistrict.DisplayMember = "Name";
                 cmbDistrict.ValueMember = "Id";

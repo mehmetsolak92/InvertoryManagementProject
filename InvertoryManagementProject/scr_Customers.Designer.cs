@@ -52,6 +52,7 @@
             dgvCompanies.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvCompanies.Size = new Size(817, 668);
             dgvCompanies.TabIndex = 0;
+            dgvCompanies.CellDoubleClick += dgvCompanies_CellDoubleClick;
             dgvCompanies.CellFormatting += dgvCompanies_CellFormatting;
             // 
             // btnAdd

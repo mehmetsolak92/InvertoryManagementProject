@@ -216,6 +216,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "scr_Main";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Invertory Management System";
             Load += scr_Main_Load;
             pnlSide1.ResumeLayout(false);

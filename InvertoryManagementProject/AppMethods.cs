@@ -17,6 +17,8 @@ namespace InvertoryManagementProject
             return query;
         }
 
+    
+
         public static int FindMaxID(string tableName)
         {
             string query = $"SELECT MAX(ID) FROM {tableName}";
@@ -30,6 +32,25 @@ namespace InvertoryManagementProject
                     int maxID = result != DBNull.Value ? Convert.ToInt32(result) : 0;
                     return maxID + 1;
                 }
+            }
+        }
+
+        public static void DeleteFromDB(string tableName, int ID)
+        {
+            try
+            {
+                string query = $"DELETE FROM {tableName} WHERE ID = {ID}";
+                using (SqlConnection con = new SqlConnection(GlobalVariables.SQLPath))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace(ex, true);
+                HelperMethods.WriteLog(trace, ex);
             }
         }
     }
@@ -72,8 +93,9 @@ namespace InvertoryManagementProject
             }
         }
 
-        public static void WriteLog(string LogText)
+        public static void WriteLog(System.Diagnostics.StackTrace trace, Exception ex)
         {
+            string LogText = DateTime.Now + " - " + ex.Message + " - " + trace.GetFrame(trace.FrameCount - 1).GetMethod().ReflectedType.FullName + " - " + "Line: " + trace.GetFrame(trace.FrameCount - 1).GetFileLineNumber() + " - " + "Column: " + trace.GetFrame(trace.FrameCount - 1).GetFileColumnNumber();
             if (!IsFileLocked(new FileInfo(GlobalVariables.LogPath)))
             {
                 using (StreamWriter Stm_LogText = new StreamWriter(GlobalVariables.LogPath, append: true))
@@ -82,7 +104,7 @@ namespace InvertoryManagementProject
                     {
                         Stm_LogText.WriteLine(LogText);
                     }
-                    catch (Exception ex)
+                    catch (Exception e)
                     {
 
                     }
