@@ -53,6 +53,22 @@ namespace InvertoryManagementProject
                 HelperMethods.WriteLog(trace, ex);
             }
         }
+
+        public static int FindNextID(string tableName)
+        {
+            using (SqlConnection con = new SqlConnection(GlobalVariables.SQLPath))
+            {
+                con.Open();
+                string query = $"SELECT IDENT_CURRENT('{tableName}') + 1";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    object result = cmd.ExecuteScalar();
+                    int nextID = result != DBNull.Value ? Convert.ToInt32(result) : 1;
+                    return nextID;
+                }
+            }
+        }
     }
 
     public static class HelperMethods

@@ -26,9 +26,10 @@ namespace InvertoryManagementProject
 
         private async Task ReadDB()
         {
-            string query = "SELECT * FROM cargoTypes";
+            string query = SQL.SelectAllQueryGenerator("cargoTypes");
 
             GlobalVariables.cargoTypes.Add("Seçiniz..");
+            GlobalVariables.cargoTypes.Add(" ");
             using (SqlConnection con = new SqlConnection(GlobalVariables.SQLPath))
             {
                 con.Open();
@@ -41,10 +42,11 @@ namespace InvertoryManagementProject
                     }
                 }
             }
-
-            query = "SELECT * FROM paymentTypes";
+            
+            query = SQL.SelectAllQueryGenerator("paymentTypes");
 
             GlobalVariables.paymentTypes.Add("Seçiniz..");
+            GlobalVariables.paymentTypes.Add(" ");
             using (SqlConnection con = new SqlConnection(GlobalVariables.SQLPath))
             {
                 con.Open();
@@ -80,7 +82,7 @@ namespace InvertoryManagementProject
             }
 
 
-            query = "SELECT * FROM list_District";
+            query = SQL.SelectAllQueryGenerator("list_District");
             GlobalVariables.Districts.Add(new District { ID = -1, Name = "Seçiniz..", CityPlateNumber = -1 });
             using (SqlConnection con = new SqlConnection(GlobalVariables.SQLPath))
             {
@@ -99,6 +101,80 @@ namespace InvertoryManagementProject
                     }
                 }
             }
+
+            query = SQL.SelectAllQueryGenerator("productBrands");
+            GlobalVariables.Brands.Add("Seçiniz..");
+            GlobalVariables.Brands.Add(" ");
+            using (SqlConnection con = new SqlConnection(GlobalVariables.SQLPath))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        GlobalVariables.Brands.Add(Convert.ToString(reader["name"]));
+                    }
+                }
+            }
+
+            query = SQL.SelectAllQueryGenerator("productSuppliers");
+            GlobalVariables.Suppliers.Add("Seçiniz..");
+            GlobalVariables.Suppliers.Add(" ");
+            using (SqlConnection con = new SqlConnection(GlobalVariables.SQLPath))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        GlobalVariables.Suppliers.Add(Convert.ToString(reader["name"]));
+                    }
+                }
+            }
+
+            query = SQL.SelectAllQueryGenerator("productCategory");
+            GlobalVariables.Categories.Add(new Category { ID = -1, Name = "Seçiniz.."});
+            using (SqlConnection con = new SqlConnection(GlobalVariables.SQLPath))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        GlobalVariables.Categories.Add(new Category
+                        {
+                            ID = Convert.ToInt32(reader["ID"]),
+                            Name = Convert.ToString(reader["name"])
+                        });
+                    }
+                }
+            }
+
+            query = SQL.SelectAllQueryGenerator("productSubCategory");
+            GlobalVariables.SubCategories.Add(new SubCategory { ID = -1, CategoryID = -1, Name = "Seçiniz.." });
+            using (SqlConnection con = new SqlConnection(GlobalVariables.SQLPath))
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        GlobalVariables.SubCategories.Add(new SubCategory
+                        {
+                            ID = Convert.ToInt32(reader["ID"]),
+                            CategoryID = Convert.ToInt32(reader["categoryID"]),
+                            Name = Convert.ToString(reader["name"])
+                        });
+                    }   
+                }
+            }
+
+
+
 
 
         }
